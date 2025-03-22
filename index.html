@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一键加入QQ群</title>
+    <style>
+        body {
+            text-align: center;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .qrcode {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border: 5px solid #00a3ff;
+            border-radius: 15px;
+            padding: 10px;
+            background: white;
+        }
+        .join-btn {
+            background: #00a3ff;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 25px;
+            cursor: pointer;
+            border: none;
+            font-size: 18px;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        .join-btn:hover {
+            background: #0088cc;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>粉丝6群</h1>
+        
+        <!-- -->
+        <div class="qrcode-box">
+            <img src="C:\Users\86183\Desktop\qq-group-qr.png" class="qrcode" alt="QQ群二维码">
+            <p>扫码快速加入</p>
+        </div>
+
+        <!-- 一键加群按钮 -->
+        <button class="join-btn" onclick="joinQQGroup()">
+            📲 一键加群
+        </button>
+    </div>
+
+    <script>
+        // 自动复制群号并跳转
+        function joinQQGroup() {
+            const groupNumber = "920903120";  // 替换真实群号
+            const groupKey = "7LcffjvU9fa-GdfLk-sYmI3PbS3refJo&authKey=uYMMeESIHEKnswTyjvRbwAGLCV791iUUpL8%2BTar%2B9n1KD3%2FcanTO6bFQ%2F3jkEZP1&noverify=0&group_code=920903120";      // 替换群Key
+
+            // 现代浏览器剪贴板API
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(groupNumber)
+                    .then(() => {
+                        window.location.href = `https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=${groupKey}`;
+                    })
+                    .catch(err => {
+                        console.error('复制失败:', err);
+                        manualCopyFallback(groupNumber, groupKey);
+                    });
+            } else {
+                // 旧版浏览器兼容方案
+                manualCopyFallback(groupNumber, groupKey);
+            }
+        }
+
+        // 兼容方案
+        function manualCopyFallback(groupNumber, groupKey) {
+            const input = document.createElement('input');
+            input.value = groupNumber;
+            document.body.appendChild(input);
+            input.select();
+            document.execCommand('copy');
+            document.body.removeChild(input);
+            window.location.href = `https://qm.qq.com/cgi-bin/qm/qr?_wv=1027&k=${groupKey}`;
+        }
+    </script>
+</body>
+</html>
